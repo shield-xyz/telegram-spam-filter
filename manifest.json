@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Telegram Spam Filter",
+  "version": "1.0",
+  "description": "Hides the first 5 DM message previews on Telegram Web and moves them to a Spam tab.",
+  "icons": {
+    "48": "icon.png"
+  },
+  "permissions": [
+    "https://web.telegram.org/*",
+    "scripting"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "icon.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://web.telegram.org/*"
+      ],
+      "js": ["content.js"]
+    }
+  ]
+}
