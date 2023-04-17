@@ -47,7 +47,7 @@ function moveMessagesToSpam() {
     spamTab.className = 'custom-spam-button';
     spamTab.style.position = 'fixed';
     spamTab.style.right = '20px';
-    spamTab.style.top = '20px';
+    spamTab.style.top = '80px';
     spamTab.style.zIndex = '9999';
   
     const spamIcon = document.createElement('img');
@@ -85,10 +85,11 @@ function moveMessagesToSpam() {
           spamContainer.className = 'spam-container';
           spamContainer.style.display = 'none';
           spamContainer.style.position = 'fixed';
-          spamContainer.style.top = '60px';
+          spamContainer.style.top = '150px';
           spamContainer.style.right = '20px';
           spamContainer.style.zIndex = 9999;
-          spamContainer.style.backgroundColor = '#fff';
+          // spamContainer.style.backgroundColor = '#fff';
+          spamContainer.style.backgroundColor = '#000';
           spamContainer.style.border = '1px solid #ccc';
           spamContainer.style.padding = '20px';
           spamContainer.style.height = '400px';
@@ -155,7 +156,7 @@ function moveMessagesToSpam() {
                   rowTitleRow.parentElement.insertBefore(rowSubtitleRow, rowTitleRow);
                 }
                 // Create a unique identifier for the message (e.g., a combination of the message URL and message content)
-                const messageIdentifier = message.href + messagePreview;
+                const messageIdentifier = message.href;
                 
                 // Only add the cloned message to the clonedMessagesMap if it doesn't already exist
                 if (!clonedMessagesMap.has(messageIdentifier)) {
@@ -173,9 +174,51 @@ function moveMessagesToSpam() {
         while (spamContainer.firstChild) {
             spamContainer.removeChild(spamContainer.firstChild);
         }
-        const clonedArray = Array.from(clonedMessagesMap.values());
-        for (let item of clonedArray) {
-          spamContainer.appendChild(item);
+        const clonedArray = Array.from(clonedMessagesMap.entries());
+        for (let [key,item] of clonedArray) {
+          messageContainer= document.createElement('div');
+          messageContainer.border = "2px solid white"
+          messageContainer.style.display ='flex'
+          messageContainer.style.flexDirection ='row'
+          messageContainer.style.alignItems ='center';
+          messageContainer.style.justifyContent ='center';
+          deleteButton = document.createElement('button');
+          deleteButton.innerHTML ='x';
+          deleteButton.style.margin ='10px 0px 10px 10px'
+          deleteButton.onclick = async function(){
+            
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+            console.log(key)
+            window.open(key, '_self');
+            await delay(500);
+            const menuButton = document.querySelector('.tgico-more');
+            console.log(menuButton)
+            if (menuButton) {
+              menuButton.click();
+              await new Promise((r) => setTimeout(r, 500));
+              // Click on the Delete button
+              const deleteButton = document.querySelector('.tgico-delete');
+              if (deleteButton) {
+                deleteButton.click();
+                // await new Promise((r) => setTimeout(r, 500));
+        
+                // // Click on the confirmation button to delete the message
+                // const confirmationButton = document.querySelector('.btn danger rp');
+                // if (confirmationButton) {
+                //   // confirmationButton.click();
+                //   // await new Promise((r) => setTimeout(r, 500));
+                //   console.log("YOU GON DELETE")
+                // }
+              }
+            
+          }
+          }
+          messageContainer.appendChild(item)
+          messageContainer.appendChild(deleteButton)
+         
+          // console.log(key,item)
+          spamContainer.appendChild(messageContainer);
         }
       }
     });
