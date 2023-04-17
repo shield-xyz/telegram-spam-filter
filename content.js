@@ -89,7 +89,7 @@ function moveMessagesToSpam() {
           spamContainer.style.right = '20px';
           spamContainer.style.zIndex = 9999;
           // spamContainer.style.backgroundColor = '#fff';
-          spamContainer.style.backgroundColor = '#000';
+          spamContainer.style.backgroundColor = '#fff';
           spamContainer.style.border = '1px solid #ccc';
           spamContainer.style.padding = '20px';
           spamContainer.style.height = '400px';
@@ -187,37 +187,38 @@ function moveMessagesToSpam() {
           deleteButton.style.margin ='10px 0px 10px 10px'
           deleteButton.onclick = async function(){
             
+            const spamContainer = document.querySelector('.spam-container');
+            spamContainer.style.display = spamContainer.style.display === 'none' ? 'block' : 'none';
             const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-            console.log(key)
+            // console.log(key)
             window.open(key, '_self');
             await delay(500);
             const menuButton = document.querySelector('.tgico-more');
-            console.log(menuButton)
             if (menuButton) {
               menuButton.click();
-              await new Promise((r) => setTimeout(r, 500));
+              await delay(500);
               // Click on the Delete button
               const deleteButton = document.querySelector('.tgico-delete');
               if (deleteButton) {
-                deleteButton.click();
-                // await new Promise((r) => setTimeout(r, 500));
-        
-                // // Click on the confirmation button to delete the message
-                // const confirmationButton = document.querySelector('.btn danger rp');
-                // if (confirmationButton) {
-                //   // confirmationButton.click();
-                //   // await new Promise((r) => setTimeout(r, 500));
-                //   console.log("YOU GON DELETE")
-                // }
+                  deleteButton.click();
+                  
+                  await delay(1000);
+          
+                  // Click on the confirmation button to delete the message
+                  const confirmationButton = document.querySelector('.popup-buttons button:first-child');
+                  if (confirmationButton) {
+
+                    // confirmationButton.click();
+                    
+                    clonedMessagesMap.delete(key);
+                  }
               }
             
           }
           }
           messageContainer.appendChild(item)
           messageContainer.appendChild(deleteButton)
-         
-          // console.log(key,item)
           spamContainer.appendChild(messageContainer);
         }
       }
