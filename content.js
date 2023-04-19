@@ -96,8 +96,8 @@ function moveMessagesToSpam() {
           spamContainer.style.top = '150px';
           spamContainer.style.right = '20px';
           spamContainer.style.zIndex = 9999;
-          // spamContainer.style.backgroundColor = '#fff';
-          spamContainer.style.backgroundColor = '#000';
+          // spamContainer.style.backgroundColor = '#000';
+          spamContainer.style.backgroundColor = '#fff';
           spamContainer.style.border = '1px solid #ccc';
           spamContainer.style.padding = '20px';
           spamContainer.style.height = '400px';
