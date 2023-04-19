@@ -49,18 +49,26 @@ function moveMessagesToSpam() {
     spamTab.style.right = '20px';
     spamTab.style.top = '80px';
     spamTab.style.zIndex = '9999';
+
+    spamTab.style.width = '50px';
+    spamTab.style.height = '50px';
+    spamTab.style.backgroundImage = 'url("' + chrome.runtime.getURL('images/icon.png') + '")';
+    spamTab.style.backgroundSize = 'cover'
+
+    console.log("Spam icon URL:",spamTab.style.backgroundImage);
+
   
-    const spamIcon = document.createElement('img');
-    spamIcon.src = chrome.runtime.getURL('images/icon.jpg');
-    console.log("Spam icon URL:", spamIcon.src);
-    spamIcon.style.width = '50px';
-    spamIcon.style.height = '50px';
-    spamIcon.style.marginRight = '5px'; // Adjust the margin to position the icon
+    // const spamIcon = document.createElement('img');
+    // spamIcon.src = chrome.runtime.getURL('images/icon.png');
+    // console.log("Spam icon URL:", spamIcon.src);
+    // spamIcon.style.width = '50px';
+    // spamIcon.style.height = '50px';
+    // spamIcon.style.marginRight = '5px'; // Adjust the margin to position the icon
   
-    const spamText = document.createTextNode('Spam');
+    // const spamText = document.createTextNode('Spam');
   
-    spamTab.appendChild(spamIcon);
-    spamTab.appendChild(spamText);
+    // spamTab.appendChild(spamIcon);
+    // spamTab.appendChild(spamText);
   
     spamTab.onclick = () => {
       const spamContainer = document.querySelector('.spam-container');
@@ -89,7 +97,7 @@ function moveMessagesToSpam() {
           spamContainer.style.right = '20px';
           spamContainer.style.zIndex = 9999;
           // spamContainer.style.backgroundColor = '#fff';
-          spamContainer.style.backgroundColor = '#fff';
+          spamContainer.style.backgroundColor = '#000';
           spamContainer.style.border = '1px solid #ccc';
           spamContainer.style.padding = '20px';
           spamContainer.style.height = '400px';

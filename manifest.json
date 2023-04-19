@@ -7,8 +7,11 @@
     "48": "icon.png"
   },
   "permissions": [
-    "https://web.telegram.org/*",
-    "scripting"
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://web.telegram.org/*"
   ],
   "action": {
     "default_popup": "popup.html",
@@ -16,6 +19,12 @@
       "48": "icon.png"
     }
   },
+  "web_accessible_resources": [
+    {
+      "resources": ["images/*"],
+      "matches": ["https://web.telegram.org/*"]
+    }
+  ],
   "content_scripts": [
     {
       "matches": [
