@@ -6,13 +6,8 @@
   "icons": {
     "48": "icon.png"
   },
-  "permissions": [
-    "scripting",
-    "activeTab"
-  ],
-  "host_permissions": [
-    "https://web.telegram.org/*"
-  ],
+  "permissions": ["scripting", "activeTab", "storage"],
+  "host_permissions": ["https://web.telegram.org/*"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -27,9 +22,7 @@
   ],
   "content_scripts": [
     {
-      "matches": [
-        "https://web.telegram.org/*"
-      ],
+      "matches": ["https://web.telegram.org/*"],
       "js": ["content.js"]
     }
   ]

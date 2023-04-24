@@ -94,10 +94,22 @@
       element.dispatchEvent(event);
     }
 
+    function triggerLeftClick(element) {
+      const event = new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+        button: 0, // 0 for left button, 1 for middle button, 2 for right button
+      });
+
+      element.dispatchEvent(event);
+    }
+
+    let intervalId;
+
     function processMessages() {
       waitForMessages(
         'ul.chatlist[data-autonomous="0"] a.chatlist-chat',
-        (messageList) => {
+        async (messageList) => {
           // console.log('Processing message list');
           // console.log('Total messages:', messageList.length);
           // console.log(processedMessages);
@@ -120,7 +132,7 @@
               spamContainer.style.padding = "20px";
               spamContainer.style.height = "400px";
               spamContainer.style.overflow = "auto";
-              spamContainer.style.width = "350px"; // Adjust the width of the spam box
+              spamContainer.style.width = "700px"; // Adjust the width of the spam box
               const body = document.querySelector("body");
               body.appendChild(spamContainer);
             } else {
@@ -148,9 +160,13 @@
 
               //console.log('Message preview:', messagePreview);
               try {
+                // console.log(messagePreview, "messagePreview");
                 if (
-                  messagePreview.includes("hi") ||
-                  messagePreview.includes("hello")
+                  // messagePreview.includes("🔥") ||
+                  // messagePreview.includes("🚀") ||
+                  // messagePreview.includes("hi") ||
+                  // messagePreview.includes("hello")
+                  messagePreview.includes("pancake")
                 ) {
                   // console.log('Including message:', messagePreview);
 
@@ -202,89 +218,337 @@
                 }
               } catch (error) {}
             }
+            console.log(spamContainer, "spam containerx");
+
+            // adding button on spamContainer
+
             while (spamContainer.firstChild) {
               spamContainer.removeChild(spamContainer.firstChild);
             }
-            const clonedArray = Array.from(clonedMessagesMap.entries());
-            for (let [key, item] of clonedArray) {
-              messageContainer = document.createElement("div");
-              messageContainer.border = "2px solid white";
-              messageContainer.style.display = "flex";
-              messageContainer.style.flexDirection = "row";
-              messageContainer.style.alignItems = "center";
-              messageContainer.style.justifyContent = "center";
-              deleteButton = document.createElement("button");
-              deleteButton.innerHTML = "x";
-              deleteButton.style.margin = "10px 0px 10px 10px";
-              deleteButton.onclick = async function (element) {
-                const spamContainer = document.querySelector(".spam-container");
-                spamContainer.style.display =
-                  spamContainer.style.display === "none" ? "block" : "none";
-                const delay = (ms) =>
-                  new Promise((resolve) => setTimeout(resolve, ms));
 
-                // console.log(key)
+            let buttonStates = [];
 
-                // Remove the telegram url and just get the Message ID
-                const toRemove = "https://web.telegram.org/k/";
-                const itemId = key.replace(toRemove, "");
-                const el = document.querySelector(`[href="${itemId}"]`);
+            // Rest of the code
+            // await delay(500);
+            const deleteAllButton = document.createElement("button");
+            deleteAllButton.innerHTML = "Delete all";
+            deleteAllButton.style.margin = "10px 0px 10px 10px";
+            deleteAllButton.onclick = async function (element) {
+              clearInterval(intervalId); // stop setInterval
 
-                // Right-click on the message
-                if (el) triggerRightClick(el);
-                else { alert('Something went wrong.') }
+              await chrome.storage.local.get(
+                ["buttonStates"],
+                async function (result) {
+                  let buttonDeleteAllStates = result.buttonStates || [];
+                  console.log(buttonDeleteAllStates, "buttondeleteallstates");
+                  const promises = [];
+                  const indexArray = [];
 
-                // Click the delete button the menu
-                await delay(500);                
-                const menuDeleteButton = document.querySelector(".tgico-delete.danger")
-                console.log('deleteButton', deleteButton)
-                if (menuDeleteButton) menuDeleteButton.click()
-                else { alert('Something went wrong.') }
+                  if (buttonDeleteAllStates.length > 0) {
+                    for (let i = 0; i < buttonDeleteAllStates.length; i++) {
+                      await new Promise((resolve) => {
+                        setTimeout(async function () {
+                          // const promise = new Promise(async (resolve, reject) => {
+                          try {
+                            const spamContainer =
+                              document.querySelector(".spam-container");
+                            // spamContainer.style.display =
+                            //   spamContainer.style.display === "none"
+                            //     ? "block"
+                            //     : "none";
+                            const delay = (ms) =>
+                              new Promise((resolve) => setTimeout(resolve, ms));
 
-                // Click the delete button confirmation
-                await delay(500);
-                const confirmDeleteButton = document.querySelector(".btn.danger.rp")
-                if (confirmDeleteButton) {
-                  confirmDeleteButton.click()
-                  alert(`Message ${itemId} successfully deleted.`)
+                            // console.log(key)
+                            const singleItem = buttonDeleteAllStates[i];
+                            // Remove the    url and just get the Message ID
+                            // Remove the telegram url and just get the Message ID
+                            const toRemove = "https://web.telegram.org/k/";
+                            let itemId = singleItem.replace(toRemove, "");
+                            itemId = itemId.replace(/[^\w\s]/gi, ""); // remove special characters
+
+                            console.log(itemId, "itemId");
+                            const el = spamContainer.querySelector(
+                              `#id${itemId}`
+                            );
+                            if (!el) {
+                              console.log(
+                                `Message ${itemId} not found in the spam container.`
+                              );
+                              resolve(null);
+                            }
+                            console.log(el);
+                            // await delay(1000);
+
+                            if (el) {
+                              await el.click();
+                            }
+                            const respones = await delay(2000);
+
+                            // const el = document.querySelector(`[href="${itemId}"]`);
+
+                            // // Right-click on the message
+                            // if (el) triggerRightClick(el);
+                            // else {
+                            //   alert("Something went wrong.");
+                            // }
+
+                            // // Click the delete button the menu
+                            // await delay(500);
+                            // try {
+                            //   const menuDeleteButton = document.querySelector(
+                            //     ".tgico-delete.danger"
+                            //   );
+
+                            //   console.log("deleteButton", deleteButton);
+                            //   if (menuDeleteButton) menuDeleteButton.click();
+                            //   else {
+                            //     alert("Something went wrong.");
+                            //   }
+                            // } catch (e) {
+                            //   console.log(e);
+                            // }
+                            // // Click the delete button confirmation
+                            // await delay(1000);
+                            // try {
+                            //   const confirmDeleteButton =
+                            //     document.querySelector(".btn.danger.rp");
+                            //   if (confirmDeleteButton) {
+                            //     confirmDeleteButton.click();
+                            //     alert(`Message ${itemId} successfully deleted.`);
+                            //   } else {
+                            //     alert("Something went wrong.");
+                            //   }
+                            // } catch (e) {
+                            //   console.log(e);
+                            // }
+                            // await delay(2000);
+                            // indexArray.push(i);
+                            resolve(respones);
+                          } catch (error) {
+                            console.log(error, "promises push errro");
+                          }
+                        }, Math.random() * 1000);
+                      });
+
+                      // });
+
+                      // promises.push(promise);
+                      // promise
+                      //   .then((message) => {
+                      //     console.log("final promise executed");
+                      //     // alert("promise executed");
+                      //   })
+                      //   .catch((error) => {
+                      //     console.log("final promise failed");
+
+                      //     // alert("promise failed");
+                      //   });
+                    }
+
+                    indexArray.sort((a, b) => b - a);
+                    for (const index of indexArray) {
+                      buttonDeleteAllStates.splice(index, 1);
+                    }
+
+                    const promiseForStorage = new Promise((resolve, reject) => {
+                      chrome.storage.local.set(
+                        { buttonStates: buttonDeleteAllStates },
+                        () => {
+                          if (chrome.runtime.lastError) {
+                            reject(chrome.runtime.lastError);
+                          } else {
+                            resolve("Button states saved to storage");
+                          }
+                        }
+                      );
+                    });
+
+                    promiseForStorage
+                      .then((message) => {
+                        window.location.reload();
+                      })
+                      .catch((error) => {
+                        // alert("promise failed");
+                      });
+
+                    // window.location.reload();
+
+                    // Promise.allSettled(promises).then((results) => {
+                    //   console.log(results);
+                    // });
+                  } else {
+                    alert("nothing to delete");
+                  }
                 }
-                else { alert('Something went wrong.') }
+              );
+              // key tasks
+              // get button states from chrome local storage
+              // then apply dele functionality on them
+              // empty local storage as per they get deleted via promises
+            };
 
-                // window.open(key, "_self");
-                // const menuButton = document.querySelector(".tgico-more");
-                // if (menuButton) {
-                //   menuButton.click();
-                //   await delay(500);
-                //   // Click on the Delete button
-                //   const deleteButton = document.querySelector(".tgico-delete");
-                //   if (deleteButton) {
-                //     deleteButton.click();
+            spamContainer.appendChild(deleteAllButton);
 
-                //     await delay(1000);
+            const clonedArray = Array.from(clonedMessagesMap.entries());
 
-                //     // Click on the confirmation button to delete the message
-                //     const confirmationButton = document.querySelector(
-                //       ".popup-buttons button:first-child"
-                //     );
-                //     if (confirmationButton) {
-                //       // confirmationButton.click();
+            const renderMessageContainer = async () => {
+              await chrome.storage.local.get(
+                ["buttonStates"],
+                function (result) {
+                  buttonStates = result.buttonStates || [];
+                  console.log(buttonStates, "buttonStates outside array");
 
-                //       clonedMessagesMap.delete(key);
-                //     }
-                //   }
-                // }
-              };
-              messageContainer.appendChild(item);
-              messageContainer.appendChild(deleteButton);
-              spamContainer.appendChild(messageContainer);
-            }
+                  console.log(buttonStates, "buttonStates outside array");
+
+                  for (let [key, item] of clonedArray) {
+                    messageContainer = document.createElement("div");
+                    messageContainer.border = "2px solid white";
+                    messageContainer.style.display = "flex";
+                    messageContainer.style.flexDirection = "row";
+                    messageContainer.style.alignItems = "center";
+                    messageContainer.style.justifyContent = "center";
+
+                    const deleteButton = document.createElement("button");
+                    const toRemoveLink = "https://web.telegram.org/k/";
+                    let copyKey = key;
+                    let itemId = copyKey.replace(toRemoveLink, "");
+                    itemId = itemId.replace(/[^\w\s]/gi, ""); // remove special characters
+
+                    console.log(itemId, "itemId");
+                    deleteButton.id = `id${itemId}`;
+                    deleteButton.innerHTML = "x";
+                    deleteButton.style.margin = "10px 0px 10px 10px";
+                    deleteButton.onclick = async function (element) {
+                      const spamContainer =
+                        document.querySelector(".spam-container");
+                      spamContainer.style.display =
+                        spamContainer.style.display === "none"
+                          ? "block"
+                          : "none";
+                      const delay = (ms) =>
+                        new Promise((resolve) => setTimeout(resolve, ms));
+
+                      // console.log(key)
+
+                      // Remove the telegram url and just get the Message ID
+                      const toRemove = "https://web.telegram.org/k/";
+                      const localItemId = key.replace(toRemove, "");
+                      const el = document.querySelector(
+                        `[href="${localItemId}"]`
+                      );
+
+                      // Right-click on the message
+                      if (el) await triggerRightClick(el);
+                      else {
+                        // alert("Something went wrong.");
+                      }
+
+                      // Click the delete button the menu
+                      await delay(500);
+                      const menuDeleteButton = document.querySelector(
+                        ".tgico-delete.danger"
+                      );
+                      console.log("deleteButton", deleteButton);
+                      if (menuDeleteButton) await menuDeleteButton.click();
+                      else {
+                        // alert("Something went wrong.");
+                      }
+
+                      // Click the delete button confirmation
+                      await delay(1000);
+                      const confirmDeleteButton =
+                        document.querySelector(".btn.danger.rp");
+                      if (confirmDeleteButton) {
+                        await confirmDeleteButton.click();
+                        // alert(`Message ${itemId} successfully deleted.`);
+                      } else {
+                        // alert("Something went wrong.");
+                      }
+                      const itemToRemove = spamContainer.querySelector(
+                        `[href="${localItemId}"]`
+                      );
+                      // const deleteButtonToRemove = spamContainer.querySelector(
+                      //   `#id${itemId}`
+                      // );
+                      itemToRemove.style.display = "none";
+                      deleteButton.style.display = "none";
+                      // messageContainer.removeChild
+                      await delay(1000);
+                      // await renderMessageContainer();
+                      // messageContainer.removeChild(el);
+
+                      // Right-click on the message
+
+                      // window.open(key, "_self");
+                      // const menuButton = document.querySelector(".tgico-more");
+                      // if (menuButton) {
+                      //   menuButton.click();
+                      //   await delay(500);
+                      //   // Click on the Delete button
+                      //   const deleteButton = document.querySelector(".tgico-delete");
+                      //   if (deleteButton) {
+                      //     deleteButton.click();
+
+                      //     await delay(1000);
+
+                      //     // Click on the confirmation button to delete the message
+                      //     const confirmationButton = document.querySelector(
+                      //       ".popup-buttons button:first-child"
+                      //     );
+                      //     if (confirmationButton) {
+                      //       // confirmationButton.click();
+
+                      //       clonedMessagesMap.delete(key);
+                      //     }
+                      //   }
+                      // }
+                    };
+                    if (!buttonStates.includes(key)) {
+                      buttonStates.push(key);
+                      const promise = new Promise((resolve, reject) => {
+                        chrome.storage.local.set(
+                          { buttonStates: buttonStates },
+                          () => {
+                            if (chrome.runtime.lastError) {
+                              reject(chrome.runtime.lastError);
+                            } else {
+                              resolve("Button states saved to storage");
+                            }
+                          }
+                        );
+                      });
+
+                      promise
+                        .then((message) => {
+                          console.log(key);
+                          console.log(message);
+                        })
+                        .catch((error) => {
+                          console.error(error);
+                        });
+                    }
+
+                    // add the toggle button to the message container
+                    messageContainer.appendChild(item);
+
+                    // messageContainer.appendChild(toggleButton);
+
+                    messageContainer.appendChild(deleteButton);
+
+                    spamContainer.appendChild(messageContainer);
+                  }
+                }
+              );
+            };
+            await renderMessageContainer();
           }
         }
       );
     }
 
     // Call processMessages every 5 seconds to check for new messages
-    setInterval(processMessages, 5000);
+    intervalId = setInterval(processMessages, 5000);
   }
 
   moveMessagesToSpam();
@@ -308,3 +572,86 @@
 `;
   document.head.appendChild(style);
 })();
+
+// const toggleButton = document.createElement("button");
+//                 let copyKey = key;
+//                 const toRemove = "https://web.telegram.org/k/#";
+//                 const itemId = copyKey.replace(toRemove, "");
+//                 console.log(itemId, "itemId");
+//                 toggleButton.id = `id${itemId}`;
+//                 toggleButton.innerHTML = "Toggle";
+//                 toggleButton.style.margin = "10px";
+//                 toggleButton.style.backgroundColor = "green";
+
+//                 console.log(
+//                   buttonStates,
+//                   buttonStates.includes(key),
+//                   key,
+//                   "inside"
+//                 );
+//                 // if buttonStates inclused this keyid
+//                 if (buttonStates.includes(key)) {
+//                   // ${key}id
+
+//                   // const childElement = document.querySelector(`#id${itemId}`);
+//                   // console.log(childElement);
+//                   // try {
+//                   //   messageContainer.removeChild(childElement);
+//                   // } catch (error) {
+//                   //   console.log(error);
+//                   // }
+//                   toggleButton.style.backgroundColor = "blue";
+//                   messageContainer.appendChild(toggleButton);
+
+//                   // add button state or index to an array or object here
+//                   console.log("Button is now blue");
+//                   console.log(buttonStates, "button states");
+//                   console.log("togglebutton", true);
+//                 } else {
+//                   console.log("togglebutton", false);
+//                   messageContainer.appendChild(toggleButton);
+//                 }
+//                 // add the toggle button to the message container
+//                 messageContainer.appendChild(item);
+
+//                 messageContainer.appendChild(toggleButton);
+
+//                 messageContainer.appendChild(deleteButton);
+//                 spamContainer.appendChild(messageContainer);
+//                 toggleButton.style.backgroundColor = "green";
+//                 toggleButton.style.color = "white";
+//                 toggleButton.onclick = async function () {
+//                   if (toggleButton.style.backgroundColor === "green") {
+//                     toggleButton.style.backgroundColor = "blue";
+//                     // add button state or index to an array or object here
+//                     console.log("Button is now blue");
+//                     buttonStates.push(key);
+
+//                     await chrome.storage.local.set(
+//                       { buttonStates: buttonStates },
+//                       function () {
+//                         console.log(key);
+//                         console.log("Button states saved to storage");
+//                       }
+//                     );
+
+//                     console.log(buttonStates, "button states");
+//                   } else {
+//                     toggleButton.style.backgroundColor = "green";
+//                     // add button state or index to an array or object here
+//                     console.log("Button is now green");
+//                     // remove element from array button states
+//                     const index = buttonStates.indexOf(key);
+//                     buttonStates.splice(index, 1);
+
+//                     await chrome.storage.local.set(
+//                       { buttonStates: buttonStates },
+//                       function () {
+//                         console.log(key);
+//                         console.log("Button states delete to storage");
+//                       }
+//                     );
+
+//                     console.log(buttonStates, "button states");
+//                   }
+//                 };
