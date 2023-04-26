@@ -1,8 +1,10 @@
 # Telegram Spam Filter Chrome Extension
-This Chrome extension provides a simple spam filtering solution for the Telegram web application. It moves messages containing specific keywords, such as "hi" and "hello," into a separate spam container, helping to declutter the main chat window. The extension also adds a custom "Spam" button to the header, which can be clicked to toggle the visibility of the spam container.
+This Chrome extension provides a simple spam filtering solution for the Telegram web application. It moves messages falling under a specific criteria into a separate spam container, helping to declutter the main chat window. The extension also adds a custom "Spam" button to the header, which can be clicked to toggle the visibility of the spam container.
 
 ## Features
 - Monitors incoming messages for specific keywords
+- Checks for Frequency of messages
+- If unread message count is above 1000
 - Hides messages containing the specified keywords from the main chat window
 - Clones and moves spam messages to a separate spam container
 - Adds a "Spam" folder to the header for toggling the visibility of the spam container
