@@ -26,6 +26,7 @@ This Chrome extension provides a simple spam filtering solution for the Telegram
 7. refresh your web telegram and you should now see the shield button on the upper right section of the screen
 
 
+
 Note: Telegram's dynamic message loading means that only the 1st 25 messages are scanned when you first open Telegram.
 Scroll down the page for Shield will detect more spam messages to add into the Spam Inbox
 
