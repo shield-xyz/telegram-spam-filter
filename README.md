@@ -17,7 +17,8 @@ This Chrome extension provides a simple spam filtering solution for the Telegram
 3. Open google chrome and head to https://web.telegram.org/k/ <-- make sure it is /k/ and not /z/ or any other telegram link (currently only working for /k/
 4. Open Google Chrome and navigate to chrome://extensions/.
 5. Enable "Developer mode" by toggling the switch in the top right corner.
-<img width="268" alt="Screenshot 2023-04-27 at 1 08 24 AM" src="https://user-images.githubusercontent.com/86547292/234651282-5d390b63-63d4-4a57-a318-6d9566079293.png">
+<img width="268" alt="Screenshot 2023-04-27 at 1 08 24 AM" src="https://user-images.githubusercontent.com/86547292/234651282-5d390b63-63d4-4a57-a318-6d9566079293.png"> 
+
 6. Click the "Load unpacked" button and select the directory containing the extension files.
 <img width="564" alt="Screenshot 2023-04-27 at 1 08 28 AM" src="https://user-images.githubusercontent.com/86547292/234651202-97183813-8661-4c22-a3de-699339162350.png">
 7. refresh your web telegram and you should now see the shield button on the upper right section of the screen
