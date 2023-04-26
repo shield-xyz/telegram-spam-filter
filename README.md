@@ -13,6 +13,7 @@ This Chrome extension provides a simple spam filtering solution for the Telegram
 ## Installation
 1. Download the repository/branch as a zip/folder.
 2. (if zip) unzip the zip into a folder
+<img width="1318" alt="Screenshot 2023-04-27 at 1 11 00 AM" src="https://user-images.githubusercontent.com/86547292/234651790-6b3f099a-9166-4ed8-8cd9-67e4b0d97321.png">
 3. Open google chrome and head to https://web.telegram.org/k/ <-- make sure it is /k/ and not /z/ or any other telegram link (currently only working for /k/
 4. Open Google Chrome and navigate to chrome://extensions/.
 5. Enable "Developer mode" by toggling the switch in the top right corner.
