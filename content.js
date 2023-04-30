@@ -622,7 +622,7 @@
               );
               // key tasks
               // get button states from chrome local storage
-              // then apply dele functionality on them
+              // then apply delete functionality on them
               // empty local storage as per they get deleted via promises
             };
 
@@ -673,7 +673,7 @@
               );
               // key tasks
               // get button states from chrome local storage
-              // then apply dele functionality on them
+              // then apply delete functionality on them
               // empty local storage as per they get deleted via promises
             };
             const clonedArray = Array.from(clonedMessagesMap.entries());
@@ -885,42 +885,10 @@
                       const itemToRemove = spamContainer.querySelector(
                         `[href="${localItemId}"]`
                       );
-                      // const deleteButtonToRemove = spamContainer.querySelector(
-                      //   `#id${itemId}`
-                      // );
                       itemToRemove.style.display = "none";
                       deleteButton.style.display = "none";
                       deleteCheckbox.style.display = "none";
-                      // messageContainer.removeChild
                       await delay(1000);
-                      // await renderMessageContainer();
-                      // messageContainer.removeChild(el);
-
-                      // Right-click on the message
-
-                      // window.open(key, "_self");
-                      // const menuButton = document.querySelector(".tgico-more");
-                      // if (menuButton) {
-                      //   menuButton.click();
-                      //   await delay(500);
-                      //   // Click on the Delete button
-                      //   const deleteButton = document.querySelector(".tgico-delete");
-                      //   if (deleteButton) {
-                      //     deleteButton.click();
-
-                      //     await delay(1000);
-
-                      //     // Click on the confirmation button to delete the message
-                      //     const confirmationButton = document.querySelector(
-                      //       ".popup-buttons button:first-child"
-                      //     );
-                      //     if (confirmationButton) {
-                      //       // confirmationButton.click();
-
-                      //       clonedMessagesMap.delete(key);
-                      //     }
-                      //   }
-                      // }
                     };
 
                     // all states saving
