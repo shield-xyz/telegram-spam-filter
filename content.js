@@ -539,11 +539,6 @@
                           // alert("promise failed");
                         });
 
-                      // window.location.reload();
-
-                      // Promise.allSettled(promises).then((results) => {
-                      //   console.log(results);
-                      // });
                     } else {
                       alert("nothing to delete");
                     }
