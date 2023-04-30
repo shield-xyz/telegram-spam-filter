@@ -345,7 +345,7 @@
             // Rest of the code
             // await delay(500);
             const deleteAllButton = document.createElement("button");
-            deleteAllButton.innerHTML = "Delete Selected";
+            deleteAllButton.innerHTML = "Delete Non-Selected";
             deleteAllButton.style.margin = "10px 0px 10px 10px";
             deleteAllButton.style.color = "black";
             deleteAllButton.onclick = async function () {
@@ -367,7 +367,7 @@
 
               // Create the popup message
               const popupMessage = document.createElement("p");
-              popupMessage.innerText = "Are you sure you want to continue?";
+              popupMessage.innerText = "You are about to delete all NON-selected messages. Are you sure with this?";
               popupMessage.style.margin = "0 0 20px 0";
 
               // Create the "Yes" button
@@ -412,7 +412,11 @@
                       // Add the loading and disable divs to the body element
                       document.body.appendChild(disableDiv);
 
-                      for (let i = 0; i < buttonDeleteAllStates.length; i++) {
+                      const allMessagesArray = clonedArray.map(el => el[0])
+                      const messagesToDeleteArray = allMessagesArray.filter(el => buttonDeleteAllStates.indexOf(el) < 0)
+                      console.log('messagesToDeleteArray', messagesToDeleteArray)
+
+                      for (let i = 0; i < messagesToDeleteArray.length; i++) {
                         await new Promise((resolve) => {
                           setTimeout(async function () {
                             // const promise = new Promise(async (resolve, reject) => {
@@ -427,7 +431,7 @@
                                 );
 
                               // console.log(key)
-                              const singleItem = buttonDeleteAllStates[i];
+                              const singleItem = messagesToDeleteArray[i];
                               // Remove the    url and just get the Message ID
                               // Remove the telegram url and just get the Message ID
                               const toRemove = "https://web.telegram.org/k/";
@@ -513,13 +517,13 @@
 
                       indexArray.sort((a, b) => b - a);
                       for (const index of indexArray) {
-                        buttonDeleteAllStates.splice(index, 1);
+                        messagesToDeleteArray.splice(index, 1);
                       }
-                      console.log(buttonDeleteAllStates);
+                      console.log(messagesToDeleteArray);
                       const promiseForStorage = new Promise(
                         (resolve, reject) => {
                           chrome.storage.local.set(
-                            { buttonStates: buttonDeleteAllStates },
+                            { buttonStates: messagesToDeleteArray },
                             () => {
                               if (chrome.runtime.lastError) {
                                 reject(chrome.runtime.lastError);
@@ -622,7 +626,7 @@
             };
 
             const unselectSelectedElements = document.createElement("button");
-            unselectSelectedElements.innerHTML = "UnSelect Selected";
+            unselectSelectedElements.innerHTML = "Unselect All";
             unselectSelectedElements.style.margin = "10px 0px 10px 10px";
             unselectSelectedElements.style.color = "black";
             unselectSelectedElements.onclick = async function () {
@@ -672,6 +676,7 @@
               // empty local storage as per they get deleted via promises
             };
             const clonedArray = Array.from(clonedMessagesMap.entries());
+            console.log('clonedArray', clonedArray)
 
             const renderMessageContainer = async () => {
               spamContainer.innerHTML = "";
