@@ -36,3 +36,7 @@ Scroll down the page for Shield will detect more spam messages to add into the S
 The spam filter will start working automatically once the script is loaded. It will continue to monitor and process incoming messages every 5 seconds.
 To view the spam messages, click on the Shield logo located in the header. The spam container will appear with a list of hidden messages.
 Use features like being able to delete all messages contained in the spam folder, or selected messages
+
+## Troubleshooting
+If after you Load the folder to your extension you don't see it, its because you are visiting https://web.telegram.org/z/ 
+ make sure the URL is https://web.telegram.org/k/
