@@ -1,138 +1,264 @@
-(function () {
-  function waitForElement(selector, callback, maxRetries = 50) {
-    const element = document.querySelector(selector);
-    if (element) {
-      // console.log('Element found:', selector);
-      callback(element);
-    } else if (maxRetries <= 0) {
-      // console.log('Element not found, giving up:', selector);
-    } else {
-      // console.log('Element not found yet, retrying:', selector);
-      setTimeout(() => waitForElement(selector, callback, maxRetries - 1), 100);
+const shieldButton = document.createElement("button");
+
+const addShieldButton = () => {
+  
+  waitForElement(".sidebar-header__btn-container", (headerElement) => {
+    //const headerElement = document.querySelector('.sidebar-header__btn-container');
+    shieldButton.className = "custom-spam-button";
+    shieldButton.style.position = "fixed";
+    shieldButton.style.right = "20px";
+    shieldButton.style.top = "80px";
+    shieldButton.style.zIndex = "9999";
+
+    shieldButton.style.width = "50px";
+    shieldButton.style.height = "50px";
+    shieldButton.style.backgroundImage =
+      'url("' + chrome.runtime.getURL("images/icon.png") + '")';
+    shieldButton.style.backgroundSize = "cover";
+    shieldButton.style.backgroundColor = "rgba(1, 6, 51, 1)"
+    shieldButton.style.borderRadius = "10px"
+
+    console.log("Spam icon URL:", shieldButton.style.backgroundImage);
+
+    // const spamIcon = document.createElement('img');
+    // spamIcon.src = chrome.runtime.getURL('images/icon.png');
+    // console.log("Spam icon URL:", spamIcon.src);
+    // spamIcon.style.width = '50px';
+    // spamIcon.style.height = '50px';
+    // spamIcon.style.marginRight = '5px'; // Adjust the margin to position the icon
+
+    // const spamText = document.createTextNode('Spam');
+
+    // shieldButton.appendChild(spamIcon);
+    // shieldButton.appendChild(spamText);
+
+    shieldButton.onclick = () => {
+      const shieldContainer = document.querySelector(".shield-container");
+      shieldContainer.style.display =
+        shieldContainer.style.display === "none" ? "block" : "none";
+    };
+
+    console.log("Adding Shield button");
+
+    headerElement.parentElement.appendChild(shieldButton);
+  });
+
+
+  //Create Shield Extension Menu
+  shieldContainer = document.createElement("div");
+  shieldContainer.className = "shield-container";
+  shieldContainer.style.display = "none";
+  shieldContainer.style.justifyContent = "center";
+  shieldContainer.style.alignItems = "center";
+  shieldContainer.style.position = "fixed";
+  shieldContainer.style.top = "150px";
+  shieldContainer.style.right = "20px";
+  shieldContainer.style.zIndex = 9999;
+
+  shieldContainer.style.backgroundColor = "rgba(1, 6, 51, 1)";
+  shieldContainer.style.border = "0";
+  shieldContainer.style.borderRadius = "10px"
+  shieldContainer.style.padding = "20px";
+  shieldContainer.style.height = "fit-content";
+  shieldContainer.style.overflow = "auto";
+  shieldContainer.style.width = "500px"; 
+
+  shieldContainerTitle = document.createElement("p")
+  shieldContainerTitle.innerHTML = "What should Shield TG Cleaner do?"
+  shieldContainerTitle.style.fontSize = "22px"
+  shieldContainerTitle.style.fontWeight = "800"
+  shieldContainerTitle.style.color = "#06C1FF"
+  shieldContainerTitle.style.width = "100%"
+  shieldContainerTitle.style.margin = "5px 0px 10px 0px"
+  shieldContainerTitle.style.textAlign = "center"
+
+  //Create Option 1 button
+  option1 = document.createElement("div");
+  option1.style.display = "flex";
+  option1.style.alignItems = "flex-start";
+  option1.style.justifyContent = "flex-start";
+  option1.style.flexDirection = "column";
+  option1.style.backgroundColor = "white";
+  option1.style.width = "100%"
+  option1.style.height = "110px"
+  option1.style.cursor = "pointer"
+  option1.style.borderRadius = "10px"
+  option1.style.padding = "10px"
+  option1.style.fontFamily = "Century Gothic"
+  option1.style.marginBottom = "20px"
+
+  option1Title = document.createElement("p")
+  option1Title.innerHTML = "Option 1"
+  option1Title.style.fontSize = "27px"
+  option1Title.style.fontWeight = "800"
+  option1Title.style.color = "rgb(1, 6, 51)"
+  option1Title.style.margin = "0"
+
+  option1Text = document.createElement("p")
+  option1Text.innerHTML = "Select messages you want to keep and have Shield TG Cleaner delete the rest"
+  option1Text.style.fontSize = "16px"
+  option1Text.style.fontWeight = "400"
+  option1Text.style.color = "rgb(1, 6, 51)"
+  option1Text.style.margin = "0"
+
+  option1.appendChild(option1Title)
+  option1.appendChild(option1Text)
+
+  //Create Option 2 button
+  option2 = document.createElement("div");
+  option2.style.display = "flex";
+  option2.style.alignItems = "flex-start";
+  option2.style.justifyContent = "flex-start";
+  option2.style.flexDirection = "column";
+  option2.style.backgroundColor = "white";
+  option2.style.width = "100%"
+  option2.style.height = "130px"
+  option2.style.cursor = "pointer"
+  option2.style.borderRadius = "10px"
+  option2.style.padding = "10px"
+  option2.style.fontFamily = "Century Gothic"
+
+  option2Title = document.createElement("p")
+  option2Title.innerHTML = "Option 2"
+  option2Title.style.fontSize = "27px"
+  option2Title.style.fontWeight = "800"
+  option2Title.style.color = "rgb(1, 6, 51)"
+  option2Title.style.margin = "0"
+
+  option2Text = document.createElement("p")
+  option2Text.innerHTML = "Shield TG Cleaner will automatically filter your messages for suspected spam. Select which messages to keep and delete the rest"
+  option2Text.style.fontSize = "16px"
+  option2Text.style.fontWeight = "400"
+  option2Text.style.color = "rgb(1, 6, 51)"
+  option2Text.style.margin = "0"
+
+  //Set the 
+  option2.onclick = () => {   
+    console.log("Start Option 2")
+    
+    shieldContainerTitle.innerHTML = "Please wait...";
+    shieldContainer.removeChild(option1);
+    shieldContainer.removeChild(option2)
+
+
+    //Initialize Option2
+    startOption2();
+
+    //Change function attached to shield button on click
+    shieldButton.onclick = () => {
+      const spamContainer = document.querySelector(".spam-container");
+      spamContainer.style.display =
+        spamContainer.style.display === "none" ? "block" : "none";
+      };
+  }
+
+  option2.appendChild(option2Title)
+  option2.appendChild(option2Text)
+  
+  shieldContainer.appendChild(shieldContainerTitle)
+  shieldContainer.appendChild(option1)
+  shieldContainer.appendChild(option2)
+  const body = document.querySelector("body");
+  body.appendChild(shieldContainer);
+  
+}
+
+function triggerRightClick(element) {
+  const event = new MouseEvent("contextmenu", {
+    bubbles: true,
+    cancelable: true,
+    view: window,
+    button: 2,
+    buttons: 2,
+  });
+
+  element.dispatchEvent(event);
+}
+
+function scrollToElement(element) {
+  console.log(element);
+  element.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function triggerLeftClick(element) {
+  const event = new MouseEvent("click", {
+    bubbles: true,
+    cancelable: true,
+    button: 0, // 0 for left button, 1 for middle button, 2 for right button
+  });
+
+  element.dispatchEvent(event);
+}
+
+function waitForElement(selector, callback, maxRetries = 50) {
+  const element = document.querySelector(selector);
+  if (element) {
+    // console.log('Element found:', selector);
+    callback(element);
+  } else if (maxRetries <= 0) {
+    // console.log('Element not found, giving up:', selector);
+  } else {
+    // console.log('Element not found yet, retrying:', selector);
+    setTimeout(() => waitForElement(selector, callback, maxRetries - 1), 100);
+  }
+}
+
+function waitForMessages(selector, callback, maxRetries = 50) {
+  const messages = document.querySelectorAll(selector);
+
+  let allMessagesHaveContent = true;
+  for (const message of messages) {
+    const messagePreview = message.querySelector(".row-subtitle");
+    if (!messagePreview || messagePreview.textContent.trim() === "") {
+      allMessagesHaveContent = false;
+      break;
     }
   }
 
-  function waitForMessages(selector, callback, maxRetries = 50) {
-    const messages = document.querySelectorAll(selector);
-
-    let allMessagesHaveContent = true;
-    for (const message of messages) {
-      const messagePreview = message.querySelector(".row-subtitle");
-      if (!messagePreview || messagePreview.textContent.trim() === "") {
-        allMessagesHaveContent = false;
-        break;
-      }
-    }
-
-    if (messages.length > 0 && allMessagesHaveContent) {
-      // console.log('Messages found:', selector);
-      callback(messages);
-    } else if (maxRetries <= 0) {
-      // console.log('Messages not found, giving up:', selector);
-    } else {
-      // console.log('Messages not found yet, retrying:', selector);
-      setTimeout(
-        () => waitForMessages(selector, callback, maxRetries - 1),
-        100
-      );
-    }
+  if (messages.length > 0 && allMessagesHaveContent) {
+    // console.log('Messages found:', selector);
+    callback(messages);
+  } else if (maxRetries <= 0) {
+    // console.log('Messages not found, giving up:', selector);
+  } else {
+    // console.log('Messages not found yet, retrying:', selector);
+    setTimeout(
+      () => waitForMessages(selector, callback, maxRetries - 1),
+      100
+    );
   }
+}
 
+const startOption2 = () => {
+  
+  let loadingDiv;
   let processedMessages = new Set();
   let clonedMessages = new Set();
   let clonedMessagesMap = new Map();
 
+  //Loading Div
+  waitForElement(".chat-background-item", (headerElement) => {
+    loadingDiv = document.createElement("div");
+    loadingDiv.style.position = "fixed";
+    loadingDiv.style.zIndex = "9999";
+
+    loadingDiv.style.bottom = "0";
+    loadingDiv.style.left = "50%";
+    loadingDiv.style.transform = "translateX(-50%)";
+    loadingDiv.innerText = "hello world";
+    loadingDiv.height = "100px";
+    loadingDiv.width = "100px";
+    loadingDiv.innerHTML =
+      "<img src=" + chrome.runtime.getURL("images/loading.gif") + ">";
+
+    loadingDiv.style.display = "none";
+    // loading display true
+    // loadingDiv.style.display = "inline-block";
+    headerElement.parentElement.appendChild(loadingDiv);
+  });
+
   function moveMessagesToSpam() {
-    let loadingDiv;
-
-    waitForElement(".sidebar-header__btn-container", (headerElement) => {
-      const spamTab = document.createElement("button");
-      //const headerElement = document.querySelector('.sidebar-header__btn-container');
-      spamTab.className = "custom-spam-button";
-      spamTab.style.position = "fixed";
-      spamTab.style.right = "20px";
-      spamTab.style.top = "80px";
-      spamTab.style.zIndex = "9999";
-
-      spamTab.style.width = "50px";
-      spamTab.style.height = "50px";
-      spamTab.style.backgroundImage =
-        'url("' + chrome.runtime.getURL("images/icon.png") + '")';
-      spamTab.style.backgroundSize = "cover";
-
-      console.log("Spam icon URL:", spamTab.style.backgroundImage);
-
-      // const spamIcon = document.createElement('img');
-      // spamIcon.src = chrome.runtime.getURL('images/icon.png');
-      // console.log("Spam icon URL:", spamIcon.src);
-      // spamIcon.style.width = '50px';
-      // spamIcon.style.height = '50px';
-      // spamIcon.style.marginRight = '5px'; // Adjust the margin to position the icon
-
-      // const spamText = document.createTextNode('Spam');
-
-      // spamTab.appendChild(spamIcon);
-      // spamTab.appendChild(spamText);
-
-      spamTab.onclick = () => {
-        const spamContainer = document.querySelector(".spam-container");
-        spamContainer.style.backgroundColor = "white";
-        spamContainer.style.display =
-          spamContainer.style.display === "none" ? "block" : "none";
-      };
-
-      console.log("Adding Spam button");
-
-      headerElement.parentElement.appendChild(spamTab);
-    });
-
-    waitForElement(".chat-background-item", (headerElement) => {
-      loadingDiv = document.createElement("div");
-      loadingDiv.style.position = "fixed";
-      loadingDiv.style.zIndex = "9999";
-
-      loadingDiv.style.bottom = "0";
-      loadingDiv.style.left = "50%";
-      loadingDiv.style.transform = "translateX(-50%)";
-      loadingDiv.innerText = "hello world";
-      loadingDiv.height = "100px";
-      loadingDiv.width = "100px";
-      loadingDiv.innerHTML =
-        "<img src=" + chrome.runtime.getURL("images/loading.gif") + ">";
-
-      loadingDiv.style.display = "none";
-      // loading display true
-      // loadingDiv.style.display = "inline-block";
-      headerElement.parentElement.appendChild(loadingDiv);
-    });
-
-    function triggerRightClick(element) {
-      const event = new MouseEvent("contextmenu", {
-        bubbles: true,
-        cancelable: true,
-        view: window,
-        button: 2,
-        buttons: 2,
-      });
-
-      element.dispatchEvent(event);
-    }
-
-    function scrollToElement(element) {
-      console.log(element);
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    function triggerLeftClick(element) {
-      const event = new MouseEvent("click", {
-        bubbles: true,
-        cancelable: true,
-        button: 0, // 0 for left button, 1 for middle button, 2 for right button
-      });
-
-      element.dispatchEvent(event);
-    }
-
+    // let loadingDiv;
     let intervalId;
 
     function processMessages() {
@@ -153,57 +279,35 @@
 
             //Create spam container if it doesn't exist yet
             if (!spamContainerCurrent) {
-              spamContainer = document.createElement("div");
-              spamContainer.className = "spam-container";
-              spamContainer.style.display = "none";
-              spamContainer.style.position = "fixed";
-              spamContainer.style.top = "150px";
-              spamContainer.style.right = "20px";
-              spamContainer.style.zIndex = 9999;
-              // spamContainer.style.backgroundColor = '#fff';
-              spamContainer.style.backgroundColor = "#000";
-              spamContainer.style.border = "1px solid #ccc";
-              spamContainer.style.padding = "20px";
-              spamContainer.style.height = "400px";
-              spamContainer.style.overflow = "auto";
-              spamContainer.style.width = "500px"; // Adjust the width of the spam box
-              const body = document.querySelector("body");
+              
+                //Remove start menu upon loading 
+                const shieldContainer = document.querySelector(".shield-container");
+                shieldContainer.style.display = "none";
 
-              //Delete all checkboxes button
-              // deleteAllContainer = document.createElement("div");
-              // deleteAllContainer.style.display = "flex";
-              // deleteAllContainer.style.flexDirection = "row";
-              // deleteAllContainer.style.alignItems = "center";
-              // deleteAllContainer.style.justifyContent = "space-between";
+                //Create spam menu
+                spamContainer = document.createElement("div");
+                spamContainer.className = "spam-container";
+                spamContainer.style.display = "block";
+                spamContainer.style.position = "fixed";
+                spamContainer.style.top = "150px";
+                spamContainer.style.right = "20px";
+                spamContainer.style.zIndex = 9999;
+                spamContainer.style.backgroundColor = "rgb(1, 6, 51)";
+                spamContainer.style.border = "0";
+                spamContainer.style.borderRadius = "10px";
+                spamContainer.style.padding = "20px";
+                spamContainer.style.height = "400px";
+                spamContainer.style.overflow = "auto";
+                spamContainer.style.width = "500px"; // Adjust the width of the spam box
+                spamContainer.style.scrollbarWidth = '12px';
 
-              // deleteAllBox = document.createElement("input");
-              // deleteAllBox.type = "checkbox";
-              // deleteAllBox.setAttribute("class", "delete-all-checkbox");
-              // deleteAllBox.setAttribute("style", "-webkit-appearance: checkbox;");
-              // deleteAllBox.style.height = "16px";
-              // deleteAllBox.style.width = "16px";
-              // deleteAllBox.style.margin = "10px 10px 10px 0px";
-              // deleteAllBox.style.opacity = 1;
-              // deleteAllBox.style.position = "relative";
-              // deleteAllBox.style.zIndex = 10000;
 
-              // deleteEverythingButton = document.createElement("button");
-              // deleteEverythingButton.innerHTML = "Delete Selected";
-              // deleteEverythingButton.setAttribute("class", "delete-all-button");
-              // deleteEverythingButton.style.backgroundColor="#3c87f7";
-              // deleteEverythingButton.style.borderRadius="5px";
-              // deleteEverythingButton.style.color="white";
-              // deleteEverythingButton.style.display="none";
-              // deleteEverythingButton.style.fontSize="12px";
-              // deleteEverythingButton.style.padding = "7px 10px 5px";
 
-              // deleteAllContainer.appendChild(deleteAllBox);
-              // deleteAllContainer.appendChild(deleteEverythingButton);
+                const body = document.querySelector("body");
 
-              // spamContainer.appendChild(deleteAllContainer);
-              body.appendChild(spamContainer);
+                body.appendChild(spamContainer);
             } else {
-              spamContainer = document.querySelector(".spam-container");
+                spamContainer = document.querySelector(".spam-container");
             }
 
             for (let i = 0; i < messageList.length; i++) {
@@ -295,11 +399,12 @@
                     clonedMessage.style.display = "flex";
                     clonedMessage.style.padding = "10px";
                     clonedMessage.style.flexDirection = "column";
-                    clonedMessage.style.border = "1px solid #ccc";
+                    clonedMessage.style.border = "1px solid #06C1FF";
                     clonedMessage.style.marginBottom = "10px";
                     clonedMessage.style.backgroundColor = "#f7f7f7";
-                    clonedMessage.style.color = "#333";
+                    clonedMessage.style.color = "white";
                     clonedMessage.style.id = i + messagePreview[0];
+                    clonedMessage.style.width = "100%";
 
                     // Adjust the location of the chat box profile picture
                     const avatar = clonedMessage.querySelector(".avatar-like");
@@ -308,10 +413,9 @@
                     }
 
                     // Swap the position of message name and message preview
-                    const rowTitleRow =
-                      clonedMessage.querySelector(".row-title-row");
-                    const rowSubtitleRow =
-                      clonedMessage.querySelector(".row-subtitle-row");
+                    const rowTitleRow = clonedMessage.querySelector(".row-title-row");
+                    const rowSubtitleRow =clonedMessage.querySelector(".row-subtitle-row");
+                    // rowSubtitleRow.style.color = "blue"
                     if (rowTitleRow && rowSubtitleRow) {
                       rowTitleRow.parentElement.insertBefore(
                         rowSubtitleRow,
@@ -345,9 +449,9 @@
             // Rest of the code
             // await delay(500);
             const deleteAllButton = document.createElement("button");
-            deleteAllButton.innerHTML = "Delete Selected";
+            deleteAllButton.innerHTML = "Delete Non-Selected";
             deleteAllButton.style.margin = "10px 0px 10px 10px";
-            deleteAllButton.style.color = "black";
+            deleteAllButton.style.color = "#06C1FF";
             deleteAllButton.onclick = async function () {
               clearInterval(intervalId); // stop setInterval
 
@@ -357,23 +461,24 @@
               popupContainer.style.top = "50%";
               popupContainer.style.left = "50%";
               popupContainer.style.transform = "translate(-50%, -50%)";
-              popupContainer.style.background = "#fff";
-              popupContainer.style.border = "2px solid #000";
-              popupContainer.style.borderRadius = "5px";
+              popupContainer.style.background = "rgb(1, 6, 51)";
+              popupContainer.style.border = "0";
+              popupContainer.style.borderRadius = "10px";
               popupContainer.style.padding = "20px";
+              popupContainer.style.color = "white";
               popupContainer.style.boxShadow =
                 "0px 0px 10px rgba(0, 0, 0, 0.5)";
               popupContainer.style.zIndex = "9999";
 
               // Create the popup message
               const popupMessage = document.createElement("p");
-              popupMessage.innerText = "Are you sure you want to continue?";
+              popupMessage.innerText = "You are about to delete all NON-selected messages. Are you sure with this?";
               popupMessage.style.margin = "0 0 20px 0";
 
               // Create the "Yes" button
               const yesButton = document.createElement("button");
               yesButton.innerText = "Yes";
-              yesButton.style.marginRight = "10px";
+              yesButton.style.marginRight = "30px";
 
               // Create the "No" button
               const noButton = document.createElement("button");
@@ -412,7 +517,11 @@
                       // Add the loading and disable divs to the body element
                       document.body.appendChild(disableDiv);
 
-                      for (let i = 0; i < buttonDeleteAllStates.length; i++) {
+                      const allMessagesArray = clonedArray.map(el => el[0])
+                      const messagesToDeleteArray = allMessagesArray.filter(el => buttonDeleteAllStates.indexOf(el) < 0)
+                      console.log('messagesToDeleteArray', messagesToDeleteArray)
+
+                      for (let i = 0; i < messagesToDeleteArray.length; i++) {
                         await new Promise((resolve) => {
                           setTimeout(async function () {
                             // const promise = new Promise(async (resolve, reject) => {
@@ -427,7 +536,7 @@
                                 );
 
                               // console.log(key)
-                              const singleItem = buttonDeleteAllStates[i];
+                              const singleItem = messagesToDeleteArray[i];
                               // Remove the    url and just get the Message ID
                               // Remove the telegram url and just get the Message ID
                               const toRemove = "https://web.telegram.org/k/";
@@ -513,13 +622,13 @@
 
                       indexArray.sort((a, b) => b - a);
                       for (const index of indexArray) {
-                        buttonDeleteAllStates.splice(index, 1);
+                        messagesToDeleteArray.splice(index, 1);
                       }
-                      console.log(buttonDeleteAllStates);
+                      console.log(messagesToDeleteArray);
                       const promiseForStorage = new Promise(
                         (resolve, reject) => {
                           chrome.storage.local.set(
-                            { buttonStates: buttonDeleteAllStates },
+                            { buttonStates: messagesToDeleteArray },
                             () => {
                               if (chrome.runtime.lastError) {
                                 reject(chrome.runtime.lastError);
@@ -570,7 +679,7 @@
             const selectAllButton = document.createElement("button");
             selectAllButton.innerHTML = "Select All";
             selectAllButton.style.margin = "10px 0px 10px 10px";
-            selectAllButton.style.color = "black";
+            selectAllButton.style.color = "#06C1FF";
             selectAllButton.onclick = async function () {
               clearInterval(intervalId); // stop setInterval
 
@@ -622,9 +731,9 @@
             };
 
             const unselectSelectedElements = document.createElement("button");
-            unselectSelectedElements.innerHTML = "UnSelect Selected";
+            unselectSelectedElements.innerHTML = "Unselect All";
             unselectSelectedElements.style.margin = "10px 0px 10px 10px";
-            unselectSelectedElements.style.color = "black";
+            unselectSelectedElements.style.color = "#06C1FF";
             unselectSelectedElements.onclick = async function () {
               clearInterval(intervalId); // stop setInterval
 
@@ -672,6 +781,7 @@
               // empty local storage as per they get deleted via promises
             };
             const clonedArray = Array.from(clonedMessagesMap.entries());
+            console.log('clonedArray', clonedArray)
 
             const renderMessageContainer = async () => {
               spamContainer.innerHTML = "";
@@ -933,7 +1043,8 @@
     }
 
     // Call processMessages every 5 seconds to check for new messages
-    intervalId = setInterval(processMessages, 5000);
+    processMessages();
+    // intervalId = setInterval(processMessages, 15000);
   }
 
   moveMessagesToSpam();
@@ -954,9 +1065,33 @@
     background-color: blue;
     color: white;
   }
+
+  .spam-container::-webkit-scrollbar {
+    width: 12px;
+  }
+  .spam-container::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  .spam-container::-webkit-scrollbar-thumb {
+    background-color: rgb(6 193 255 / 29%);
+    border-radius: 10px;
+  }
+  .spam-container::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(6 193 255);
+  }
+  .row-title,.primary-text{
+    color:white!important;
+  }
 `;
   document.head.appendChild(style);
+}
+
+//This is the main function
+(function () {
+  console.log("Start Extension")
+  addShieldButton();
 })();
 
-// hiding the popups like leave group , delete group
-// confirm message for user that how many chats they are deleeting
+//May 1, 2023
+//Put some functions outside
+//Separated the codes that would start Option 2 
