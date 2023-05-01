@@ -35,7 +35,7 @@ const addShieldButton = () => {
     shieldButton.onclick = () => {
       const shieldContainer = document.querySelector(".shield-container");
       shieldContainer.style.display =
-        shieldContainer.style.display === "none" ? "block" : "none";
+        shieldContainer.style.display === "none" ? "flex" : "none";
     };
 
     console.log("Adding Shield button");
@@ -49,6 +49,7 @@ const addShieldButton = () => {
   shieldContainer.className = "shield-container";
   shieldContainer.style.display = "none";
   shieldContainer.style.justifyContent = "center";
+  shieldContainer.style.flexDirection = "column"
   shieldContainer.style.alignItems = "center";
   shieldContainer.style.position = "fixed";
   shieldContainer.style.top = "150px";
@@ -104,6 +105,7 @@ const addShieldButton = () => {
   option1.appendChild(option1Title)
   option1.appendChild(option1Text)
 
+  
   //Create Option 2 button
   option2 = document.createElement("div");
   option2.style.display = "flex";
@@ -132,7 +134,36 @@ const addShieldButton = () => {
   option2Text.style.color = "rgb(1, 6, 51)"
   option2Text.style.margin = "0"
 
-  //Set the 
+  option1.onclick = () => {   
+    console.log("Start Option 1")
+    shieldContainer.removeChild(option1);
+    shieldContainer.removeChild(option2);
+
+    shieldContainerTitle.innerHTML = "Select the messages you want to keep";
+    option1Button = document.createElement("button")
+    option1Button.innerHTML = "Done"
+    option1Button.style.fontSize = "22px"
+    option1Button.style.fontWeight = "800"
+    option1Button.style.color = "rgb(1, 6, 51)"
+    option1Button.style.margin = "0"
+    option1Button.style.backgroundColor = "white"
+    option1Button.style.width = "180px"
+    option1Button.style.padding = "10px"
+    option1Button.style.borderRadius = "10px"
+
+    
+    shieldContainer.appendChild(option1Button)
+    //Initialize Option2
+    startOption1();
+
+    //Change function attached to shield button on click
+    // shieldButton.onclick = () => {
+    //   const spamContainer = document.querySelector(".spam-container");
+    //   spamContainer.style.display =
+    //     spamContainer.style.display === "none" ? "block" : "none";
+    //   };
+  }
+
   option2.onclick = () => {   
     console.log("Start Option 2")
     
@@ -227,6 +258,11 @@ function waitForMessages(selector, callback, maxRetries = 50) {
       100
     );
   }
+}
+
+const startOption1 = () => {
+    const shieldContainer = document.querySelector(".shield-container");
+    
 }
 
 const startOption2 = () => {
@@ -1044,8 +1080,8 @@ const startOption2 = () => {
     }
 
     // Call processMessages every 5 seconds to check for new messages
-    processMessages();
-    // intervalId = setInterval(processMessages, 15000);
+    // processMessages();
+    intervalId = setInterval(processMessages, 5000);
   }
 
   moveMessagesToSpam();
