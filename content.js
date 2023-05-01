@@ -132,7 +132,11 @@ const addShieldButton = () => {
   option2Text.style.color = "rgb(1, 6, 51)"
   option2Text.style.margin = "0"
 
-  //Set the 
+  //Option 1 STARTS HERE
+
+  option1.onclick = () => {}
+
+  //Option 2 STARTS HERE
   option2.onclick = () => {   
     console.log("Start Option 2")
     
