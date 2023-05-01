@@ -132,11 +132,7 @@ const addShieldButton = () => {
   option2Text.style.color = "rgb(1, 6, 51)"
   option2Text.style.margin = "0"
 
-  //Option 1 STARTS HERE
-
-  option1.onclick = () => {}
-
-  //Option 2 STARTS HERE
+  //Set the 
   option2.onclick = () => {   
     console.log("Start Option 2")
     
@@ -906,6 +902,7 @@ const startOption2 = () => {
 
                     deleteButton.id = `id${itemId}`;
                     deleteButton.innerHTML = "x";
+                    deleteButton.style.color = "white";
                     deleteButton.style.margin = "10px 0px 10px 10px";
                     deleteButton.onclick = async function (element) {
                       const spamContainer =
@@ -1083,8 +1080,15 @@ const startOption2 = () => {
   .spam-container::-webkit-scrollbar-thumb:hover {
     background-color: rgb(6 193 255);
   }
-  .row-title,.primary-text{
-    color:white!important;
+  .spam-container .row-title,.spam-container .primary-text,.spam-container .badge{
+    color:black!important;
+  }
+  .spam-container .badge{
+    z-index : 2;
+    color:black!important;
+  }
+  .spam-container .c-ripple{
+    background-color : white!important;
   }
 `;
   document.head.appendChild(style);
