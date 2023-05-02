@@ -1,7 +1,6 @@
 const shieldButton = document.createElement("button");
 
 const addShieldButton = () => {
-  
   waitForElement(".sidebar-header__btn-container", (headerElement) => {
     //const headerElement = document.querySelector('.sidebar-header__btn-container');
     shieldButton.className = "custom-spam-button";
@@ -15,8 +14,8 @@ const addShieldButton = () => {
     shieldButton.style.backgroundImage =
       'url("' + chrome.runtime.getURL("images/icon.png") + '")';
     shieldButton.style.backgroundSize = "cover";
-    shieldButton.style.backgroundColor = "rgba(1, 6, 51, 1)"
-    shieldButton.style.borderRadius = "10px"
+    shieldButton.style.backgroundColor = "rgba(1, 6, 51, 1)";
+    shieldButton.style.borderRadius = "10px";
 
     console.log("Spam icon URL:", shieldButton.style.backgroundImage);
 
@@ -43,13 +42,12 @@ const addShieldButton = () => {
     headerElement.parentElement.appendChild(shieldButton);
   });
 
-
   //Create Shield Extension Menu
   shieldContainer = document.createElement("div");
   shieldContainer.className = "shield-container";
   shieldContainer.style.display = "none";
   shieldContainer.style.justifyContent = "center";
-  shieldContainer.style.flexDirection = "column"
+  shieldContainer.style.flexDirection = "column";
   shieldContainer.style.alignItems = "center";
   shieldContainer.style.position = "fixed";
   shieldContainer.style.top = "150px";
@@ -58,20 +56,20 @@ const addShieldButton = () => {
 
   shieldContainer.style.backgroundColor = "rgba(1, 6, 51, 1)";
   shieldContainer.style.border = "0";
-  shieldContainer.style.borderRadius = "10px"
+  shieldContainer.style.borderRadius = "10px";
   shieldContainer.style.padding = "20px";
   shieldContainer.style.height = "fit-content";
   shieldContainer.style.overflow = "auto";
-  shieldContainer.style.width = "500px"; 
+  shieldContainer.style.width = "500px";
 
-  shieldContainerTitle = document.createElement("p")
-  shieldContainerTitle.innerHTML = "What should Shield TG Cleaner do?"
-  shieldContainerTitle.style.fontSize = "22px"
-  shieldContainerTitle.style.fontWeight = "800"
-  shieldContainerTitle.style.color = "#06C1FF"
-  shieldContainerTitle.style.width = "100%"
-  shieldContainerTitle.style.margin = "5px 0px 10px 0px"
-  shieldContainerTitle.style.textAlign = "center"
+  shieldContainerTitle = document.createElement("p");
+  shieldContainerTitle.innerHTML = "What should Shield TG Cleaner do?";
+  shieldContainerTitle.style.fontSize = "22px";
+  shieldContainerTitle.style.fontWeight = "800";
+  shieldContainerTitle.style.color = "#06C1FF";
+  shieldContainerTitle.style.width = "100%";
+  shieldContainerTitle.style.margin = "5px 0px 10px 0px";
+  shieldContainerTitle.style.textAlign = "center";
 
   //Create Option 1 button
   option1 = document.createElement("div");
@@ -80,32 +78,32 @@ const addShieldButton = () => {
   option1.style.justifyContent = "flex-start";
   option1.style.flexDirection = "column";
   option1.style.backgroundColor = "white";
-  option1.style.width = "100%"
-  option1.style.height = "110px"
-  option1.style.cursor = "pointer"
-  option1.style.borderRadius = "10px"
-  option1.style.padding = "10px"
-  option1.style.fontFamily = "Century Gothic"
-  option1.style.marginBottom = "20px"
+  option1.style.width = "100%";
+  option1.style.height = "110px";
+  option1.style.cursor = "pointer";
+  option1.style.borderRadius = "10px";
+  option1.style.padding = "10px";
+  option1.style.fontFamily = "Century Gothic";
+  option1.style.marginBottom = "20px";
 
-  option1Title = document.createElement("p")
-  option1Title.innerHTML = "Option 1"
-  option1Title.style.fontSize = "27px"
-  option1Title.style.fontWeight = "800"
-  option1Title.style.color = "rgb(1, 6, 51)"
-  option1Title.style.margin = "0"
+  option1Title = document.createElement("p");
+  option1Title.innerHTML = "Option 1";
+  option1Title.style.fontSize = "27px";
+  option1Title.style.fontWeight = "800";
+  option1Title.style.color = "rgb(1, 6, 51)";
+  option1Title.style.margin = "0";
 
-  option1Text = document.createElement("p")
-  option1Text.innerHTML = "Select messages you want to keep and have Shield TG Cleaner delete the rest"
-  option1Text.style.fontSize = "16px"
-  option1Text.style.fontWeight = "400"
-  option1Text.style.color = "rgb(1, 6, 51)"
-  option1Text.style.margin = "0"
+  option1Text = document.createElement("p");
+  option1Text.innerHTML =
+    "Select messages you want to keep and have Shield TG Cleaner delete the rest";
+  option1Text.style.fontSize = "16px";
+  option1Text.style.fontWeight = "400";
+  option1Text.style.color = "rgb(1, 6, 51)";
+  option1Text.style.margin = "0";
 
-  option1.appendChild(option1Title)
-  option1.appendChild(option1Text)
+  option1.appendChild(option1Title);
+  option1.appendChild(option1Text);
 
-  
   //Create Option 2 button
   option2 = document.createElement("div");
   option2.style.display = "flex";
@@ -113,48 +111,48 @@ const addShieldButton = () => {
   option2.style.justifyContent = "flex-start";
   option2.style.flexDirection = "column";
   option2.style.backgroundColor = "white";
-  option2.style.width = "100%"
-  option2.style.height = "130px"
-  option2.style.cursor = "pointer"
-  option2.style.borderRadius = "10px"
-  option2.style.padding = "10px"
-  option2.style.fontFamily = "Century Gothic"
+  option2.style.width = "100%";
+  option2.style.height = "130px";
+  option2.style.cursor = "pointer";
+  option2.style.borderRadius = "10px";
+  option2.style.padding = "10px";
+  option2.style.fontFamily = "Century Gothic";
 
-  option2Title = document.createElement("p")
-  option2Title.innerHTML = "Option 2"
-  option2Title.style.fontSize = "27px"
-  option2Title.style.fontWeight = "800"
-  option2Title.style.color = "rgb(1, 6, 51)"
-  option2Title.style.margin = "0"
+  option2Title = document.createElement("p");
+  option2Title.innerHTML = "Option 2";
+  option2Title.style.fontSize = "27px";
+  option2Title.style.fontWeight = "800";
+  option2Title.style.color = "rgb(1, 6, 51)";
+  option2Title.style.margin = "0";
 
-  option2Text = document.createElement("p")
-  option2Text.innerHTML = "Shield TG Cleaner will automatically filter your messages for suspected spam. Select which messages to keep and delete the rest"
-  option2Text.style.fontSize = "16px"
-  option2Text.style.fontWeight = "400"
-  option2Text.style.color = "rgb(1, 6, 51)"
-  option2Text.style.margin = "0"
+  option2Text = document.createElement("p");
+  option2Text.innerHTML =
+    "Shield TG Cleaner will automatically filter your messages for suspected spam. Select which messages to keep and delete the rest";
+  option2Text.style.fontSize = "16px";
+  option2Text.style.fontWeight = "400";
+  option2Text.style.color = "rgb(1, 6, 51)";
+  option2Text.style.margin = "0";
 
-  option1.onclick = () => {   
-    console.log("Start Option 1")
+  option1.onclick = () => {
+    console.log("Start Option 1");
     shieldContainer.removeChild(option1);
     shieldContainer.removeChild(option2);
 
     shieldContainerTitle.innerHTML = "Select the messages you want to keep";
-    option1Button = document.createElement("button")
-    option1Button.innerHTML = "Done"
-    option1Button.style.fontSize = "22px"
-    option1Button.style.fontWeight = "800"
-    option1Button.style.color = "rgb(1, 6, 51)"
-    option1Button.style.margin = "0"
-    option1Button.style.backgroundColor = "white"
-    option1Button.style.width = "180px"
-    option1Button.style.padding = "10px"
-    option1Button.style.borderRadius = "10px"
+    option1Button = document.createElement("button");
+    option1Button.innerHTML = "Done";
+    option1Button.style.fontSize = "22px";
+    option1Button.style.fontWeight = "800";
+    option1Button.style.color = "rgb(1, 6, 51)";
+    option1Button.style.margin = "0";
+    option1Button.style.backgroundColor = "white";
+    option1Button.style.width = "180px";
+    option1Button.style.padding = "10px";
+    option1Button.style.borderRadius = "10px";
 
-    
-    shieldContainer.appendChild(option1Button)
+    shieldContainer.appendChild(option1Button);
     //Initialize Option2
-    startOption1();
+    startOption2(true);
 
     //Change function attached to shield button on click
     // shieldButton.onclick = () => {
@@ -162,37 +160,35 @@ const addShieldButton = () => {
     //   spamContainer.style.display =
     //     spamContainer.style.display === "none" ? "block" : "none";
     //   };
-  }
+  };
 
-  option2.onclick = () => {   
-    console.log("Start Option 2")
-    
+  option2.onclick = () => {
+    console.log("Start Option 2");
+
     shieldContainerTitle.innerHTML = "Please wait...";
     shieldContainer.removeChild(option1);
-    shieldContainer.removeChild(option2)
-
+    shieldContainer.removeChild(option2);
 
     //Initialize Option2
-    startOption2();
+    startOption2(false);
 
     //Change function attached to shield button on click
     shieldButton.onclick = () => {
       const spamContainer = document.querySelector(".spam-container");
       spamContainer.style.display =
         spamContainer.style.display === "none" ? "block" : "none";
-      };
-  }
+    };
+  };
 
-  option2.appendChild(option2Title)
-  option2.appendChild(option2Text)
-  
-  shieldContainer.appendChild(shieldContainerTitle)
-  shieldContainer.appendChild(option1)
-  shieldContainer.appendChild(option2)
+  option2.appendChild(option2Title);
+  option2.appendChild(option2Text);
+
+  shieldContainer.appendChild(shieldContainerTitle);
+  shieldContainer.appendChild(option1);
+  shieldContainer.appendChild(option2);
   const body = document.querySelector("body");
   body.appendChild(shieldContainer);
-  
-}
+};
 
 function triggerRightClick(element) {
   const event = new MouseEvent("contextmenu", {
@@ -253,20 +249,11 @@ function waitForMessages(selector, callback, maxRetries = 50) {
     // console.log('Messages not found, giving up:', selector);
   } else {
     // console.log('Messages not found yet, retrying:', selector);
-    setTimeout(
-      () => waitForMessages(selector, callback, maxRetries - 1),
-      100
-    );
+    setTimeout(() => waitForMessages(selector, callback, maxRetries - 1), 100);
   }
 }
 
-const startOption1 = () => {
-    const shieldContainer = document.querySelector(".shield-container");
-    
-}
-
-const startOption2 = () => {
-  
+const startOption2 = (isStartOption1) => {
   let loadingDiv;
   let processedMessages = new Set();
   let clonedMessages = new Set();
@@ -315,35 +302,33 @@ const startOption2 = () => {
 
             //Create spam container if it doesn't exist yet
             if (!spamContainerCurrent) {
-              
-                //Remove start menu upon loading 
-                const shieldContainer = document.querySelector(".shield-container");
-                shieldContainer.style.display = "none";
+              //Remove start menu upon loading
+              const shieldContainer =
+                document.querySelector(".shield-container");
+              shieldContainer.style.display = "none";
 
-                //Create spam menu
-                spamContainer = document.createElement("div");
-                spamContainer.className = "spam-container";
-                spamContainer.style.display = "block";
-                spamContainer.style.position = "fixed";
-                spamContainer.style.top = "150px";
-                spamContainer.style.right = "20px";
-                spamContainer.style.zIndex = 9999;
-                spamContainer.style.backgroundColor = "rgb(1, 6, 51)";
-                spamContainer.style.border = "0";
-                spamContainer.style.borderRadius = "10px";
-                spamContainer.style.padding = "20px";
-                spamContainer.style.height = "400px";
-                spamContainer.style.overflow = "auto";
-                spamContainer.style.width = "500px"; // Adjust the width of the spam box
-                spamContainer.style.scrollbarWidth = '12px';
+              //Create spam menu
+              spamContainer = document.createElement("div");
+              spamContainer.className = "spam-container";
+              spamContainer.style.display = "block";
+              spamContainer.style.position = "fixed";
+              spamContainer.style.top = "150px";
+              spamContainer.style.right = "20px";
+              spamContainer.style.zIndex = 9999;
+              spamContainer.style.backgroundColor = "rgb(1, 6, 51)";
+              spamContainer.style.border = "0";
+              spamContainer.style.borderRadius = "10px";
+              spamContainer.style.padding = "20px";
+              spamContainer.style.height = "400px";
+              spamContainer.style.overflow = "auto";
+              spamContainer.style.width = "500px"; // Adjust the width of the spam box
+              spamContainer.style.scrollbarWidth = "12px";
 
+              const body = document.querySelector("body");
 
-
-                const body = document.querySelector("body");
-
-                body.appendChild(spamContainer);
+              body.appendChild(spamContainer);
             } else {
-                spamContainer = document.querySelector(".spam-container");
+              spamContainer = document.querySelector(".spam-container");
             }
 
             for (let i = 0; i < messageList.length; i++) {
@@ -396,6 +381,7 @@ const startOption2 = () => {
               try {
                 // console.log(unreadMessages.textContent, "messagePreview");
                 if (
+                  isStartOption1 ||
                   // messagePreview.includes("🔥") ||
                   // messagePreview.includes("🚀") ||
                   messagePreview.includes("hi") ||
@@ -449,8 +435,10 @@ const startOption2 = () => {
                     }
 
                     // Swap the position of message name and message preview
-                    const rowTitleRow = clonedMessage.querySelector(".row-title-row");
-                    const rowSubtitleRow =clonedMessage.querySelector(".row-subtitle-row");
+                    const rowTitleRow =
+                      clonedMessage.querySelector(".row-title-row");
+                    const rowSubtitleRow =
+                      clonedMessage.querySelector(".row-subtitle-row");
                     // rowSubtitleRow.style.color = "blue"
                     if (rowTitleRow && rowSubtitleRow) {
                       rowTitleRow.parentElement.insertBefore(
@@ -485,7 +473,11 @@ const startOption2 = () => {
             // Rest of the code
             // await delay(500);
             const deleteAllButton = document.createElement("button");
-            deleteAllButton.innerHTML = "Delete Non-Selected";
+            if (isStartOption1) {
+              deleteAllButton.innerHTML = "Delete Selected";
+            } else {
+              deleteAllButton.innerHTML = "Delete Non-Selected";
+            }
             deleteAllButton.style.margin = "10px 0px 10px 10px";
             deleteAllButton.style.color = "#06C1FF";
             deleteAllButton.onclick = async function () {
@@ -508,17 +500,20 @@ const startOption2 = () => {
 
               // Create the popup message
               const popupMessage = document.createElement("p");
-              popupMessage.innerText = "You are about to delete all NON-selected messages. Are you sure with this?";
+              popupMessage.innerText =
+                "You are about to delete all NON-selected messages. Are you sure with this?";
               popupMessage.style.margin = "0 0 20px 0";
 
               // Create the "Yes" button
               const yesButton = document.createElement("button");
               yesButton.innerText = "Yes";
+              yesButton.style.color = "white";
               yesButton.style.marginRight = "30px";
 
               // Create the "No" button
               const noButton = document.createElement("button");
               noButton.innerText = "No";
+              noButton.style.color = "white";
 
               // Add event listeners to the buttons
               yesButton.addEventListener("click", async () => {
@@ -553,9 +548,23 @@ const startOption2 = () => {
                       // Add the loading and disable divs to the body element
                       document.body.appendChild(disableDiv);
 
-                      const allMessagesArray = clonedArray.map(el => el[0])
-                      const messagesToDeleteArray = allMessagesArray.filter(el => buttonDeleteAllStates.indexOf(el) < 0)
-                      console.log('messagesToDeleteArray', messagesToDeleteArray)
+                      const allMessagesArray = clonedArray.map((el) => el[0]);
+
+                      let messagesToDeleteArray;
+                      if (isStartOption1) {
+                        messagesToDeleteArray = allMessagesArray.filter(
+                          (el) => buttonDeleteAllStates.indexOf(el) > 0
+                        );
+                      } else {
+                        messagesToDeleteArray = allMessagesArray.filter(
+                          (el) => buttonDeleteAllStates.indexOf(el) < 0
+                        );
+                      }
+
+                      console.log(
+                        "messagesToDeleteArray",
+                        messagesToDeleteArray
+                      );
 
                       for (let i = 0; i < messagesToDeleteArray.length; i++) {
                         await new Promise((resolve) => {
@@ -683,7 +692,6 @@ const startOption2 = () => {
                         .catch((error) => {
                           // alert("promise failed");
                         });
-
                     } else {
                       alert("nothing to delete");
                     }
@@ -817,7 +825,7 @@ const startOption2 = () => {
               // empty local storage as per they get deleted via promises
             };
             const clonedArray = Array.from(clonedMessagesMap.entries());
-            console.log('clonedArray', clonedArray)
+            console.log("clonedArray", clonedArray);
 
             const renderMessageContainer = async () => {
               spamContainer.innerHTML = "";
@@ -1128,14 +1136,14 @@ const startOption2 = () => {
   }
 `;
   document.head.appendChild(style);
-}
+};
 
 //This is the main function
 (function () {
-  console.log("Start Extension")
+  console.log("Start Extension");
   addShieldButton();
 })();
 
 //May 1, 2023
 //Put some functions outside
-//Separated the codes that would start Option 2 
+//Separated the codes that would start Option 2
