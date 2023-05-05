@@ -33,6 +33,7 @@ const addShieldButton = () => {
 
     shieldButton.onclick = () => {
       const shieldContainer = document.querySelector(".shield-container");
+      console.log('shieldContainer.style.display', shieldContainer.style.display)
       shieldContainer.style.display =
         shieldContainer.style.display === "none" ? "flex" : "none";
     };
@@ -155,11 +156,11 @@ const addShieldButton = () => {
     startOption2(true);
 
     //Change function attached to shield button on click
-    // shieldButton.onclick = () => {
-    //   const spamContainer = document.querySelector(".spam-container");
-    //   spamContainer.style.display =
-    //     spamContainer.style.display === "none" ? "block" : "none";
-    //   };
+    shieldButton.onclick = () => {
+      const spamContainer = document.querySelector(".spam-container");
+      spamContainer.style.display =
+        spamContainer.style.display === "none" ? "block" : "none";
+      };
   };
 
   option2.onclick = () => {
@@ -473,11 +474,7 @@ const startOption2 = (isStartOption1) => {
             // Rest of the code
             // await delay(500);
             const deleteAllButton = document.createElement("button");
-            if (isStartOption1) {
-              deleteAllButton.innerHTML = "Delete Selected";
-            } else {
-              deleteAllButton.innerHTML = "Delete Non-Selected";
-            }
+            deleteAllButton.innerHTML = "Delete Unselected";
             deleteAllButton.style.margin = "10px 0px 10px 10px";
             deleteAllButton.style.color = "#06C1FF";
             deleteAllButton.onclick = async function () {
@@ -518,6 +515,18 @@ const startOption2 = (isStartOption1) => {
               // Add event listeners to the buttons
               yesButton.addEventListener("click", async () => {
                 // User clicked "Yes"
+
+                // Go to Top-most message before deleting
+                const chatboxTop = document.querySelector('.chatlist-top')
+                scrollToElement(chatboxTop)
+
+                const delay = (ms) =>
+                  new Promise((resolve) =>
+                    setTimeout(resolve, ms)
+                  );
+
+                await delay(1000)
+
                 // TODO: Continue with action
                 popupContainer.remove(); // Remove the popup from the page
 
@@ -985,7 +994,7 @@ const startOption2 = (isStartOption1) => {
                       }
                       console.log(afterRightClickMenu, "afterRightClickMenu");
                       // Click the delete button the menu
-                      await delay(500);
+                      await delay(1000);
                       const menuDeleteButton = document.querySelector(
                         ".tgico-delete.danger"
                       );
@@ -1013,7 +1022,7 @@ const startOption2 = (isStartOption1) => {
                       }
 
                       // Click the delete button confirmation
-                      await delay(1000);
+                      await delay(1200);
 
                       const deletePopupFinal = document.querySelector(
                         "popup.popup-peer.popup-delete-chat"
