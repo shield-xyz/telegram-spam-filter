@@ -141,7 +141,7 @@ const addShieldButton = () => {
 
     shieldContainerTitle.innerHTML = "Select the messages you want to keep";
     option1Button = document.createElement("button");
-    option1Button.innerHTML = "Done";
+    option1Button.innerHTML = "Start Selecting";
     option1Button.style.fontSize = "22px";
     option1Button.style.fontWeight = "800";
     option1Button.style.color = "rgb(1, 6, 51)";
@@ -160,7 +160,7 @@ const addShieldButton = () => {
       const spamContainer = document.querySelector(".spam-container");
       spamContainer.style.display =
         spamContainer.style.display === "none" ? "block" : "none";
-      };
+    };
   };
 
   option2.onclick = () => {
@@ -458,7 +458,7 @@ const startOption2 = (isStartOption1) => {
                 } else {
                   // console.log('Excluding message:', messagePreview ? messagePreview : 'No preview');
                 }
-              } catch (error) {}
+              } catch (error) { }
             }
             console.log(spamContainer, "spam containerx");
 
@@ -495,11 +495,71 @@ const startOption2 = (isStartOption1) => {
                 "0px 0px 10px rgba(0, 0, 0, 0.5)";
               popupContainer.style.zIndex = "9999";
 
-              // Create the popup message
+
+              // count messages to be deleted
+              let arrCounter = clonedArray.map((el) => el[0]);
+              let selectedCount = 0;
+
+              console.log(
+                "arrayCounter:",
+                arrCounter.length
+              );
+
+
               const popupMessage = document.createElement("p");
-              popupMessage.innerText =
-                "You are about to delete all NON-selected messages. Are you sure with this?";
-              popupMessage.style.margin = "0 0 20px 0";
+
+              await chrome.storage.local.get(
+                ["buttonStates", "allStates"],
+                function (result) {
+                  buttonStates = result.buttonStates || [];
+                  selectedCount = buttonStates.length
+                  console.log(buttonStates, "SELECTED COUNTER");
+
+                  console.log(arrCounter.length)
+                  console.log(selectedCount)
+                  // arrCounter = arrCounter.length - buttonStates.length;
+                  let numToDel = 0
+                  numToDel  = arrCounter.length - selectedCount;
+
+                  // number that is non-selected to delete
+                  console.log("numToDel:" + numToDel);
+
+                
+
+                  let min = 0;
+                  let sec = 0
+                  sec = numToDel * 3.5;
+                  
+                  if (sec > 60) {
+                    min = sec / 60;
+                    min = Math.trunc(min);
+                  }
+                  sec = sec % 60;
+                  let message = "";
+
+                  if (min >= 1) {
+                    message = min + " minute(s) " + sec + " second(s) ";
+                  } else {
+                    message = sec + "second(s)";
+                  }
+
+                  
+                  popupMessage.innerText =
+                    "You are about to delete all "+ numToDel +" NON-selected messages. Estimated time to delete " + message + " Do you want to continue?";
+                  popupMessage.style.margin = "0 0 20px 0";
+
+                }
+              );
+
+
+
+              // console.log(min)
+              // console.log(sec)
+              // console.log(message)
+
+
+              // Create the popup message
+
 
               // Create the "Yes" button
               const yesButton = document.createElement("button");
@@ -849,6 +909,7 @@ const startOption2 = (isStartOption1) => {
                   console.log(allStates, "allStates inside array");
 
                   console.log(buttonStates, "buttonStates inside array");
+                  selectedCount = buttonStates.length;
 
                   for (let [key, item] of clonedArray) {
                     messageContainer = document.createElement("div");
