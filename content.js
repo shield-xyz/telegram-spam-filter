@@ -33,14 +33,12 @@ const addShieldButton = () => {
 
     shieldButton.onclick = () => {
       const shieldContainer = document.querySelector(".shield-container");
-      console.log('shieldContainer.style.display', shieldContainer.style.display)
+      console.log(
+        "shieldContainer.style.display",
+        shieldContainer.style.display
+      );
       shieldContainer.style.display =
         shieldContainer.style.display === "none" ? "flex" : "none";
-
-        chrome.storage.local.clear(function() {
-          console.log('Local storage cleared');
-        });
-        
     };
 
     console.log("Adding Shield button");
@@ -146,7 +144,7 @@ const addShieldButton = () => {
 
     shieldContainerTitle.innerHTML = "Select the messages you want to keep";
     option1Button = document.createElement("button");
-    option1Button.innerHTML = "Start Selecting";
+    option1Button.innerHTML = "Done";
     option1Button.style.fontSize = "22px";
     option1Button.style.fontWeight = "800";
     option1Button.style.color = "rgb(1, 6, 51)";
