@@ -37,10 +37,16 @@ const addShieldButton = () => {
       shieldContainer.style.display =
         shieldContainer.style.display === "none" ? "flex" : "none";
 
+<<<<<<< Updated upstream
         chrome.storage.local.clear(function() {
           console.log('Local storage cleared');
         });
         
+=======
+      chrome.storage.local.clear(function () {
+        console.log('Local storage cleared');
+      });
+>>>>>>> Stashed changes
     };
 
     console.log("Adding Shield button");
@@ -500,7 +506,10 @@ const startOption2 = (isStartOption1) => {
                 "0px 0px 10px rgba(0, 0, 0, 0.5)";
               popupContainer.style.zIndex = "9999";
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
               // count messages to be deleted
               let arrCounter = clonedArray.map((el) => el[0]);
               let selectedCount = 0;
@@ -555,6 +564,7 @@ const startOption2 = (isStartOption1) => {
 
                 }
               );
+<<<<<<< Updated upstream
 
 
 
@@ -565,6 +575,8 @@ const startOption2 = (isStartOption1) => {
 
               // Create the popup message
 
+=======
+>>>>>>> Stashed changes
 
               // Create the "Yes" button
               const yesButton = document.createElement("button");
