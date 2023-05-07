@@ -33,14 +33,16 @@ const addShieldButton = () => {
 
     shieldButton.onclick = () => {
       const shieldContainer = document.querySelector(".shield-container");
-      console.log('shieldContainer.style.display', shieldContainer.style.display)
+      console.log(
+        "shieldContainer.style.display",
+        shieldContainer.style.display
+      );
       shieldContainer.style.display =
         shieldContainer.style.display === "none" ? "flex" : "none";
 
-        chrome.storage.local.clear(function() {
-          console.log('Local storage cleared');
-        });
-        
+      chrome.storage.local.clear(function () {
+        console.log('Local storage cleared');
+      });
     };
 
     console.log("Adding Shield button");
@@ -500,7 +502,6 @@ const startOption2 = (isStartOption1) => {
                 "0px 0px 10px rgba(0, 0, 0, 0.5)";
               popupContainer.style.zIndex = "9999";
 
-
               // count messages to be deleted
               let arrCounter = clonedArray.map((el) => el[0]);
               let selectedCount = 0;
@@ -556,16 +557,6 @@ const startOption2 = (isStartOption1) => {
                 }
               );
 
-
-
-              // console.log(min)
-              // console.log(sec)
-              // console.log(message)
-
-
-              // Create the popup message
-
-
               // Create the "Yes" button
               const yesButton = document.createElement("button");
               yesButton.innerText = "Yes";
@@ -582,21 +573,19 @@ const startOption2 = (isStartOption1) => {
                 // User clicked "Yes"
 
                 // Go to Top-most message before deleting
-                const chatboxTop = document.querySelector('.chatlist-top')
-                scrollToElement(chatboxTop)
+                const chatboxTop = document.querySelector(".chatlist-top");
+                scrollToElement(chatboxTop);
 
                 const delay = (ms) =>
-                  new Promise((resolve) =>
-                    setTimeout(resolve, ms)
-                  );
+                  new Promise((resolve) => setTimeout(resolve, ms));
 
-                await delay(1000)
+                await delay(1000);
 
                 // TODO: Continue with action
                 popupContainer.remove(); // Remove the popup from the page
 
                 await chrome.storage.local.get(
-                  ["allStates"],
+                  ["buttonStates"],
                   async function (result) {
                     let buttonDeleteAllStates = result.buttonStates || [];
                     console.log(buttonDeleteAllStates, "buttondeleteallstates");
@@ -624,16 +613,9 @@ const startOption2 = (isStartOption1) => {
 
                       const allMessagesArray = clonedArray.map((el) => el[0]);
 
-                      let messagesToDeleteArray;
-                      if (isStartOption1) {
-                        messagesToDeleteArray = allMessagesArray.filter(
-                          (el) => buttonDeleteAllStates.indexOf(el) > 0
-                        );
-                      } else {
-                        messagesToDeleteArray = allMessagesArray.filter(
-                          (el) => buttonDeleteAllStates.indexOf(el) < 0
-                        );
-                      }
+                      const messagesToDeleteArray = allMessagesArray.filter(
+                        (el) => buttonDeleteAllStates.indexOf(el) < 0
+                      );
 
                       console.log(
                         "messagesToDeleteArray",
@@ -914,7 +896,6 @@ const startOption2 = (isStartOption1) => {
                   console.log(allStates, "allStates inside array");
 
                   console.log(buttonStates, "buttonStates inside array");
-                  selectedCount = buttonStates.length;
 
                   for (let [key, item] of clonedArray) {
                     messageContainer = document.createElement("div");
