@@ -5,7 +5,7 @@ document.getElementById("shieldlogo").addEventListener("click", function() {
   
     // Create two buttons for the user to select Option 1 or Option 2
     var option1Button = document.createElement("button");
-    option1Button.innerHTML = "Option 1";
+    option1Button.innerHTML = "Option 1: Select What to Keep";
     option1Button.addEventListener("click", function() {
       // User selected Option 1
       // Create a new window or tab to display the messages
@@ -19,7 +19,7 @@ document.getElementById("shieldlogo").addEventListener("click", function() {
     });
   
     var option2Button = document.createElement("button");
-    option2Button.innerHTML = "Option 2";
+    option2Button.innerHTML = "Option 2: Remove Selection";
     option2Button.addEventListener("click", function() {
       // User selected Option 2
       // Open the spam folder as usual
